@@ -43,7 +43,9 @@ gsd task add <title> [--dep <ID>]     create a task
 gsd task start|done <ID>              mark doing / done
 gsd task block <ID> [reason]          mark blocked
 gsd task unblock <ID>                 back to todo
+gsd task edit <ID> [--title <t>] [--dep <ID>]   edit task (--dep none clears)
 gsd show <ID>                         full detail + history (T-… or D-…)
+gsd handoff <text> [--task <ID>]      record where-I-left-off; no args: show recent
 gsd log decision <text> [--why <r>]   record a decision
 gsd decision supersede <ID> <text>    replace a decision (old stays in history)
 gsd decisions                         list decisions
@@ -80,10 +82,15 @@ Duplicate lines after a merge are deduplicated by event ID.
 `D-a4f1`) use a random 4-char suffix instead of a sequence number, so two
 branches minting IDs concurrently never fight over "the next number".
 
+**Staleness fighting.** A `doing` task is flagged `stale?` in status when
+untouched for 72h, or when ≥10 commits landed since it was last touched —
+an active repo with an untouched task means the tracker drifted from
+reality. Status also leads with the latest handoff note, so a fresh
+session sees "where the last one left off" first.
+
 **Known limits (accepted for v1):** last-write-wins trusts wall clocks —
 skewed clocks across machines can pick the "wrong" winner, with worst case
-a briefly stale status. Task titles/deps are set at creation (edit by
-superseding with a new event type later if needed).
+a briefly stale status.
 
 ## Agent integration
 

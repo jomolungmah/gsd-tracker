@@ -17,3 +17,8 @@
 {"v":1,"id":"19f4d3b7b0d-47f4","ts":"2026-07-10T18:12:51Z","actor":"claude","type":"task_status","task":"T-4eas","status":"doing"}
 {"v":1,"id":"19f4d3bdd46-t32y","ts":"2026-07-10T18:13:16Z","actor":"claude","type":"decision_logged","decision":"D-3x8f","text":"Stale flag on doing tasks: untouched \u003e72h OR \u003e=10 repo commits since last touch","why":"commit flow since last touch signals the repo moved on without the task; pure wall-clock misses that on busy repos"}
 {"v":1,"id":"19f4d3c8b4b-9waa","ts":"2026-07-10T18:14:01Z","actor":"claude","type":"task_status","task":"T-4eas","status":"done"}
+{"v":1,"id":"19f4d3c8b5d-pg4d","ts":"2026-07-10T18:14:01Z","actor":"claude","type":"task_status","task":"T-zenm","status":"doing"}
+{"v":1,"id":"19f4d3e76e0-cqw2","ts":"2026-07-10T18:16:07Z","actor":"claude","type":"task_status","task":"T-zenm","status":"done"}
+{"v":1,"id":"19f4d3e76ed-62ej","ts":"2026-07-10T18:16:07Z","actor":"claude","type":"task_created","task":"T-rypb","title":"First tagged release (v0.1.0)","status":"todo"}
+{"v":1,"id":"19f4d3e76fd-73sw","ts":"2026-07-10T18:16:07Z","actor":"claude","type":"task_status","task":"T-rypb","status":"blocked","reason":"needs a GitHub remote; brew formula additionally needs navij/homebrew-tap + HOMEBREW_TAP_GITHUB_TOKEN secret"}
+{"v":1,"id":"19f4d3e770b-xcde","ts":"2026-07-10T18:16:07Z","actor":"claude","type":"handoff","text":"Roadmap complete: task edit, handoff notes, git-aware stale detection, goreleaser+brew packaging. Release blocked on GitHub remote."}

@@ -13,7 +13,10 @@ directly (one JSON event per line, newest last) — but prefer the CLI.
 ## Read (cheap — do this first)
 
 - **Session start**: run `gsd status` before exploring the repo. It lists
-  active/blocked/done tasks and recent decisions in a few hundred tokens.
+  active/blocked/done tasks and recent decisions in a few hundred tokens,
+  led by the latest handoff note (`gsd handoff` shows recent ones in full).
+  Treat tasks marked `stale?` as possibly out of date — verify before
+  trusting them.
 - **Drill down, don't scan**: `gsd show T-xxxx` for one task's full detail
   and history. Never read `.gsd/log.jsonl` when the CLI is available.
 - **Before proposing a design choice**: run `gsd decisions`. If the
@@ -29,6 +32,8 @@ directly (one JSON event per line, newest last) — but prefer the CLI.
 | Hitting a blocker | `gsd task block T-xxxx <reason>` |
 | Blocker cleared | `gsd task unblock T-xxxx` |
 | New work identified | `gsd task add "<title>" [--dep T-xxxx]` |
+| Task title/deps wrong | `gsd task edit T-xxxx --title "<t>"` (`--dep none` clears deps) |
+| Ending a session mid-task | `gsd handoff "<done / tried / next step>" --task T-xxxx` |
 | Non-obvious choice made | `gsd log decision "<what>" --why "<rationale>"` |
 | Reversing a decision | `gsd decision supersede D-xxxx "<new>" --why "<r>"` |
 

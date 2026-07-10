@@ -1,0 +1,36 @@
+version: 2
+
+project_name: gsd
+
+builds:
+  - main: .
+    binary: gsd
+    env:
+      - CGO_ENABLED=0 # pure-Go sqlite (modernc) keeps builds static
+    goos: [linux, darwin, windows]
+    goarch: [amd64, arm64]
+    ldflags:
+      - -s -w
+
+archives:
+  - formats: [tar.gz]
+    format_overrides:
+      - goos: windows
+        formats: [zip]
+
+checksum:
+  name_template: checksums.txt
+
+changelog:
+  use: git
+
+brews:
+  - skip_upload: true # flip to false once navij/homebrew-tap exists and HOMEBREW_TAP_GITHUB_TOKEN is set
+    repository:
+      owner: navij
+      name: homebrew-tap
+      token: "{{ .Env.HOMEBREW_TAP_GITHUB_TOKEN }}"
+    homepage: https://github.com/navij/gsd-tracker
+    description: Token-lean project state tracker for AI agents
+    install: bin.install "gsd"
+    test: system "#{bin}/gsd --help"
