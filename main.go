@@ -17,6 +17,7 @@ const usage = `gsd — project state tracker for agents & humans
   gsd task start|done <ID>              mark task doing / done
   gsd task block <ID> [reason]          mark task blocked
   gsd task unblock <ID>                 back to todo
+  gsd task edit <ID> [--title <t>] [--dep <ID>]   edit task (--dep none clears)
   gsd show <ID>                         full detail + history (T-… or D-…)
   gsd log decision <text> [--why <r>]   record a decision
   gsd decision supersede <ID> <text> [--why <r>]

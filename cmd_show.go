@@ -80,6 +80,16 @@ func printHistory(root, id string) {
 			if ev.Reason != "" {
 				line += " — " + ev.Reason
 			}
+		case event.TaskUpdated:
+			line = "edited"
+			if ev.Title != "" {
+				line += ": " + ev.Title
+			}
+			if ev.ClearDeps {
+				line += " (deps cleared)"
+			} else if len(ev.Deps) > 0 {
+				line += " (deps: " + strings.Join(ev.Deps, ",") + ")"
+			}
 		}
 		fmt.Printf("  %s  %-12s %s\n", ts.Format("2006-01-02 15:04"), ev.Actor, line)
 	}

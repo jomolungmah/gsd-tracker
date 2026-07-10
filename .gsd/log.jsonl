@@ -8,3 +8,6 @@
 {"v":1,"id":"19f4d328753-mwf4","ts":"2026-07-10T18:03:04Z","actor":"navij","type":"task_created","task":"T-4eas","title":"Stale detection cross-checked against git log","status":"todo"}
 {"v":1,"id":"19f4d328760-dp3r","ts":"2026-07-10T18:03:04Z","actor":"navij","type":"task_created","task":"T-f3bz","title":"Task title/deps editing via task_updated event","status":"todo"}
 {"v":1,"id":"19f4d32876b-wvyr","ts":"2026-07-10T18:03:04Z","actor":"navij","type":"task_created","task":"T-zenm","title":"Release packaging (goreleaser, brew tap)","status":"todo"}
+{"v":1,"id":"19f4d38a406-ftc4","ts":"2026-07-10T18:09:45Z","actor":"claude","type":"task_status","task":"T-f3bz","status":"doing"}
+{"v":1,"id":"19f4d398f74-67ew","ts":"2026-07-10T18:10:45Z","actor":"claude","type":"task_updated","task":"T-f3bz","title":"Task title/deps editing (task_updated event)"}
+{"v":1,"id":"19f4d39b434-kkhn","ts":"2026-07-10T18:10:55Z","actor":"claude","type":"task_status","task":"T-f3bz","status":"done"}

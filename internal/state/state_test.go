@@ -102,6 +102,43 @@ func TestUnblockClearsReason(t *testing.T) {
 	}
 }
 
+func TestTaskUpdatedEditsTitleAndDeps(t *testing.T) {
+	events := []event.Event{
+		ev("e1", "2026-07-01T00:00:00Z", event.TaskCreated, func(e *event.Event) {
+			e.Task, e.Title, e.Deps = "T-aaaa", "old title", []string{"T-bbbb"}
+		}),
+		ev("e2", "2026-07-02T00:00:00Z", event.TaskUpdated, func(e *event.Event) {
+			e.Task, e.Title = "T-aaaa", "new title"
+		}),
+	}
+	st := Replay(events)
+	task := st.Tasks["T-aaaa"]
+	if task.Title != "new title" {
+		t.Fatalf("title = %q, want new title", task.Title)
+	}
+	if len(task.Deps) != 1 || task.Deps[0] != "T-bbbb" {
+		t.Fatalf("deps must survive a title-only edit, got %v", task.Deps)
+	}
+
+	// Deps replacement and clearing.
+	events = append(events,
+		ev("e3", "2026-07-03T00:00:00Z", event.TaskUpdated, func(e *event.Event) {
+			e.Task, e.Deps = "T-aaaa", []string{"T-cccc", "T-dddd"}
+		}),
+	)
+	if got := Replay(events).Tasks["T-aaaa"].Deps; len(got) != 2 || got[0] != "T-cccc" {
+		t.Fatalf("deps not replaced: %v", got)
+	}
+	events = append(events,
+		ev("e4", "2026-07-04T00:00:00Z", event.TaskUpdated, func(e *event.Event) {
+			e.Task, e.ClearDeps = "T-aaaa", true
+		}),
+	)
+	if got := Replay(events).Tasks["T-aaaa"].Deps; len(got) != 0 {
+		t.Fatalf("deps not cleared: %v", got)
+	}
+}
+
 func TestDecisionSupersede(t *testing.T) {
 	events := []event.Event{
 		ev("e1", "2026-07-01T00:00:00Z", event.DecisionLogged, func(e *event.Event) {

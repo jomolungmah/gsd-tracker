@@ -107,6 +107,24 @@ func (st *State) apply(ev event.Event) {
 		t.Actor = ev.Actor
 		t.Updated = ts
 
+	case event.TaskUpdated:
+		t, ok := st.Tasks[ev.Task]
+		if !ok {
+			t = &Task{ID: ev.Task, Status: event.StatusTodo, Created: ts}
+			st.Tasks[ev.Task] = t
+		}
+		if ev.Title != "" {
+			t.Title = ev.Title
+		}
+		switch {
+		case ev.ClearDeps:
+			t.Deps = nil
+		case len(ev.Deps) > 0:
+			t.Deps = ev.Deps
+		}
+		t.Actor = ev.Actor
+		t.Updated = ts
+
 	case event.DecisionLogged:
 		st.Decisions[ev.Decision] = &Decision{
 			ID:      ev.Decision,

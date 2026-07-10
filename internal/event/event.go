@@ -10,6 +10,7 @@ type Type string
 const (
 	TaskCreated        Type = "task_created"
 	TaskStatus         Type = "task_status"
+	TaskUpdated        Type = "task_updated"
 	DecisionLogged     Type = "decision_logged"
 	DecisionSuperseded Type = "decision_superseded"
 )
@@ -29,15 +30,16 @@ type Event struct {
 	Actor string `json:"actor,omitempty"`
 	Type  Type   `json:"type"`
 
-	Task     string   `json:"task,omitempty"`     // T-xxxx this event applies to
-	Decision string   `json:"decision,omitempty"` // D-xxxx this event applies to
-	Title    string   `json:"title,omitempty"`
-	Status   string   `json:"status,omitempty"`
-	Reason   string   `json:"reason,omitempty"` // block reason
-	Deps     []string `json:"deps,omitempty"`
-	Text     string   `json:"text,omitempty"` // decision summary
-	Why      string   `json:"why,omitempty"`  // decision rationale
-	By       string   `json:"by,omitempty"`   // superseding decision id
+	Task      string   `json:"task,omitempty"`     // T-xxxx this event applies to
+	Decision  string   `json:"decision,omitempty"` // D-xxxx this event applies to
+	Title     string   `json:"title,omitempty"`
+	Status    string   `json:"status,omitempty"`
+	Reason    string   `json:"reason,omitempty"` // block reason
+	Deps      []string `json:"deps,omitempty"`
+	ClearDeps bool     `json:"clear_deps,omitempty"` // task_updated: drop all deps
+	Text      string   `json:"text,omitempty"`       // decision summary
+	Why       string   `json:"why,omitempty"`        // decision rationale
+	By        string   `json:"by,omitempty"`         // superseding decision id
 }
 
 func ValidStatus(s string) bool {
