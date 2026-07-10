@@ -47,6 +47,19 @@ func cmdStatus() error {
 	fmt.Printf("gsd: %d active, %d blocked, %d done | %d decisions\n",
 		len(doing)+len(todo), len(blocked), len(done), len(st.Decisions))
 
+	if n := len(st.Handoffs); n > 0 {
+		h := st.Handoffs[n-1]
+		text := h.Text
+		if len(text) > 140 {
+			text = text[:139] + "…"
+		}
+		ref := ""
+		if h.Task != "" {
+			ref = " re: " + h.Task
+		}
+		fmt.Printf("HANDOFF (%s, %s%s)  %s\n", rel(h.Created), h.Actor, ref, text)
+	}
+
 	section("DOING", doing, func(t *state.Task) string {
 		flag := ""
 		if time.Since(t.Updated) > staleAfter {

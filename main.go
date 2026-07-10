@@ -19,6 +19,7 @@ const usage = `gsd — project state tracker for agents & humans
   gsd task unblock <ID>                 back to todo
   gsd task edit <ID> [--title <t>] [--dep <ID>]   edit task (--dep none clears)
   gsd show <ID>                         full detail + history (T-… or D-…)
+  gsd handoff <text> [--task <ID>]      record where-I-left-off; no args: show recent
   gsd log decision <text> [--why <r>]   record a decision
   gsd decision supersede <ID> <text> [--why <r>]
   gsd decisions                         list decisions
@@ -41,6 +42,8 @@ func main() {
 		err = cmdTask(args[1:])
 	case "show":
 		err = cmdShow(args[1:])
+	case "handoff":
+		err = cmdHandoff(args[1:])
 	case "log":
 		err = cmdLog(args[1:])
 	case "decision":

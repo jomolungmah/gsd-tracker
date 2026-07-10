@@ -70,6 +70,23 @@ func TestCacheRebuildAndReuse(t *testing.T) {
 		t.Fatalf("cache path: %+v", st2.Tasks["T-aaaa"])
 	}
 
+	// Handoffs must survive the cache roundtrip too.
+	h := mkEvent(event.HandoffLogged, time.Now().UTC().Add(500*time.Millisecond))
+	h.Text, h.Task = "left off here", "T-aaaa"
+	if err := Append(root, h); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := LoadState(root); err != nil { // rebuild
+		t.Fatal(err)
+	}
+	stc, err := LoadState(root) // cache path
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(stc.Handoffs) != 1 || stc.Handoffs[0].Text != "left off here" {
+		t.Fatalf("handoff lost in cache roundtrip: %+v", stc.Handoffs)
+	}
+
 	// New append invalidates the hash; next load must see the change.
 	e2 := mkEvent(event.TaskStatus, time.Now().UTC().Add(time.Second))
 	e2.Task, e2.Status = "T-aaaa", event.StatusDone

@@ -139,6 +139,25 @@ func TestTaskUpdatedEditsTitleAndDeps(t *testing.T) {
 	}
 }
 
+func TestHandoffsKeptInTimestampOrder(t *testing.T) {
+	// File order reversed relative to time, as after a union merge.
+	events := []event.Event{
+		ev("e2", "2026-07-02T00:00:00Z", event.HandoffLogged, func(e *event.Event) {
+			e.Text = "newer note"
+		}),
+		ev("e1", "2026-07-01T00:00:00Z", event.HandoffLogged, func(e *event.Event) {
+			e.Text, e.Task = "older note", "T-aaaa"
+		}),
+	}
+	st := Replay(events)
+	if len(st.Handoffs) != 2 {
+		t.Fatalf("got %d handoffs, want 2", len(st.Handoffs))
+	}
+	if st.Handoffs[1].Text != "newer note" || st.Handoffs[0].Task != "T-aaaa" {
+		t.Fatalf("handoffs out of order: %+v", st.Handoffs)
+	}
+}
+
 func TestDecisionSupersede(t *testing.T) {
 	events := []event.Event{
 		ev("e1", "2026-07-01T00:00:00Z", event.DecisionLogged, func(e *event.Event) {

@@ -11,3 +11,6 @@
 {"v":1,"id":"19f4d38a406-ftc4","ts":"2026-07-10T18:09:45Z","actor":"claude","type":"task_status","task":"T-f3bz","status":"doing"}
 {"v":1,"id":"19f4d398f74-67ew","ts":"2026-07-10T18:10:45Z","actor":"claude","type":"task_updated","task":"T-f3bz","title":"Task title/deps editing (task_updated event)"}
 {"v":1,"id":"19f4d39b434-kkhn","ts":"2026-07-10T18:10:55Z","actor":"claude","type":"task_status","task":"T-f3bz","status":"done"}
+{"v":1,"id":"19f4d39b446-zdfd","ts":"2026-07-10T18:10:55Z","actor":"claude","type":"task_status","task":"T-wra4","status":"doing"}
+{"v":1,"id":"19f4d3b4fb8-yagn","ts":"2026-07-10T18:12:40Z","actor":"claude","type":"handoff","task":"T-wra4","text":"Implemented handoff notes; next: stale detection vs git log, then goreleaser config"}
+{"v":1,"id":"19f4d3b7af9-73e9","ts":"2026-07-10T18:12:51Z","actor":"claude","type":"task_status","task":"T-wra4","status":"done"}

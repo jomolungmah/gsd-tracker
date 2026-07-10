@@ -27,6 +27,9 @@ CREATE TABLE IF NOT EXISTS decisions(
   id TEXT PRIMARY KEY, text TEXT, why TEXT, actor TEXT,
   superseded_by TEXT, created TEXT
 );
+CREATE TABLE IF NOT EXISTS handoffs(
+  id TEXT PRIMARY KEY, text TEXT, task TEXT, actor TEXT, created TEXT
+);
 `
 
 func openDB(root string) (*sql.DB, error) {
@@ -131,7 +134,7 @@ func rebuild(db *sql.DB, st *state.State, evs []event.Event, hash string) error 
 	}
 	defer tx.Rollback()
 
-	for _, table := range []string{"events", "tasks", "decisions"} {
+	for _, table := range []string{"events", "tasks", "decisions", "handoffs"} {
 		if _, err := tx.Exec("DELETE FROM " + table); err != nil {
 			return err
 		}
@@ -161,6 +164,13 @@ func rebuild(db *sql.DB, st *state.State, evs []event.Event, hash string) error 
 			`INSERT INTO decisions(id, text, why, actor, superseded_by, created) VALUES(?,?,?,?,?,?)`,
 			d.ID, d.Text, d.Why, d.Actor, d.SupersededBy,
 			d.Created.Format(time.RFC3339)); err != nil {
+			return err
+		}
+	}
+	for _, h := range st.Handoffs {
+		if _, err := tx.Exec(
+			`INSERT OR IGNORE INTO handoffs(id, text, task, actor, created) VALUES(?,?,?,?,?)`,
+			h.ID, h.Text, h.Task, h.Actor, h.Created.Format(time.RFC3339)); err != nil {
 			return err
 		}
 	}
@@ -194,6 +204,24 @@ func loadFromDB(db *sql.DB) (*state.State, error) {
 		st.Tasks[t.ID] = &t
 	}
 	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+
+	hrows, err := db.Query(`SELECT id, text, task, actor, created FROM handoffs ORDER BY created, id`)
+	if err != nil {
+		return nil, err
+	}
+	defer hrows.Close()
+	for hrows.Next() {
+		var h state.Handoff
+		var created string
+		if err := hrows.Scan(&h.ID, &h.Text, &h.Task, &h.Actor, &created); err != nil {
+			return nil, err
+		}
+		h.Created, _ = time.Parse(time.RFC3339, created)
+		st.Handoffs = append(st.Handoffs, &h)
+	}
+	if err := hrows.Err(); err != nil {
 		return nil, err
 	}
 

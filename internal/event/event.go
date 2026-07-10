@@ -11,6 +11,7 @@ const (
 	TaskCreated        Type = "task_created"
 	TaskStatus         Type = "task_status"
 	TaskUpdated        Type = "task_updated"
+	HandoffLogged      Type = "handoff"
 	DecisionLogged     Type = "decision_logged"
 	DecisionSuperseded Type = "decision_superseded"
 )

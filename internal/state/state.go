@@ -28,9 +28,20 @@ type Decision struct {
 	Created      time.Time
 }
 
+// Handoff is a "where I left off" note. Handoffs are kept in replay
+// (= timestamp) order; the last one is the freshest picture.
+type Handoff struct {
+	ID      string // event ID
+	Text    string
+	Task    string // optional related task
+	Actor   string
+	Created time.Time
+}
+
 type State struct {
 	Tasks     map[string]*Task
 	Decisions map[string]*Decision
+	Handoffs  []*Handoff
 }
 
 func New() *State {
@@ -133,6 +144,15 @@ func (st *State) apply(ev event.Event) {
 			Actor:   ev.Actor,
 			Created: ts,
 		}
+
+	case event.HandoffLogged:
+		st.Handoffs = append(st.Handoffs, &Handoff{
+			ID:      ev.ID,
+			Text:    ev.Text,
+			Task:    ev.Task,
+			Actor:   ev.Actor,
+			Created: ts,
+		})
 
 	case event.DecisionSuperseded:
 		if d, ok := st.Decisions[ev.Decision]; ok {
