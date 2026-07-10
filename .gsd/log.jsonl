@@ -14,3 +14,6 @@
 {"v":1,"id":"19f4d39b446-zdfd","ts":"2026-07-10T18:10:55Z","actor":"claude","type":"task_status","task":"T-wra4","status":"doing"}
 {"v":1,"id":"19f4d3b4fb8-yagn","ts":"2026-07-10T18:12:40Z","actor":"claude","type":"handoff","task":"T-wra4","text":"Implemented handoff notes; next: stale detection vs git log, then goreleaser config"}
 {"v":1,"id":"19f4d3b7af9-73e9","ts":"2026-07-10T18:12:51Z","actor":"claude","type":"task_status","task":"T-wra4","status":"done"}
+{"v":1,"id":"19f4d3b7b0d-47f4","ts":"2026-07-10T18:12:51Z","actor":"claude","type":"task_status","task":"T-4eas","status":"doing"}
+{"v":1,"id":"19f4d3bdd46-t32y","ts":"2026-07-10T18:13:16Z","actor":"claude","type":"decision_logged","decision":"D-3x8f","text":"Stale flag on doing tasks: untouched \u003e72h OR \u003e=10 repo commits since last touch","why":"commit flow since last touch signals the repo moved on without the task; pure wall-clock misses that on busy repos"}
+{"v":1,"id":"19f4d3c8b4b-9waa","ts":"2026-07-10T18:14:01Z","actor":"claude","type":"task_status","task":"T-4eas","status":"done"}

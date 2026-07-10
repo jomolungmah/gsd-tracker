@@ -16,10 +16,11 @@ const (
 	recentDone      = 5
 	recentDecisions = 5
 	staleAfter      = 72 * time.Hour
+	staleCommits    = 10 // repo commits since last touch that mark a doing task stale
 )
 
 func cmdStatus() error {
-	_, st, err := mustRootAndState()
+	root, st, err := mustRootAndState()
 	if err != nil {
 		return err
 	}
@@ -64,6 +65,8 @@ func cmdStatus() error {
 		flag := ""
 		if time.Since(t.Updated) > staleAfter {
 			flag = ", stale?"
+		} else if n, ok := commitsSince(root, t.Updated); ok && n >= staleCommits {
+			flag = fmt.Sprintf(", stale? repo +%d commits since touch", n)
 		}
 		return fmt.Sprintf("(%s%s)", rel(t.Updated), flag)
 	}, st)

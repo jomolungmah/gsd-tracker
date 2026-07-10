@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"strconv"
 	"strings"
 	"time"
 
@@ -85,6 +86,22 @@ func splitFlags(args []string, known map[string]bool) (map[string][]string, []st
 		pos = append(pos, a)
 	}
 	return flags, pos, nil
+}
+
+// commitsSince counts repo commits newer than t. ok is false when the
+// count is unavailable (not a git repo, no commits, git missing) — stale
+// detection then falls back to wall-clock age alone.
+func commitsSince(root string, t time.Time) (int, bool) {
+	out, err := exec.Command("git", "-C", root, "rev-list", "--count",
+		"--since="+t.UTC().Format(time.RFC3339), "HEAD").Output()
+	if err != nil {
+		return 0, false
+	}
+	n, err := strconv.Atoi(strings.TrimSpace(string(out)))
+	if err != nil {
+		return 0, false
+	}
+	return n, true
 }
 
 // rel renders a compact relative age: 5m, 3h, 2d.
