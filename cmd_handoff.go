@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strings"
 
-	"gsd/internal/event"
-	"gsd/internal/store"
+	"github.com/jomolungmah/gsd-tracker/internal/event"
+	"github.com/jomolungmah/gsd-tracker/internal/store"
 )
 
 // cmdHandoff records a "where I left off" note, or with no args shows

@@ -5,8 +5,8 @@ import (
 	"strings"
 	"time"
 
-	"gsd/internal/event"
-	"gsd/internal/state"
+	"github.com/jomolungmah/gsd-tracker/internal/event"
+	"github.com/jomolungmah/gsd-tracker/internal/state"
 )
 
 // stateAlias keeps command files readable without importing state everywhere.

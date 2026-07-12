@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"strings"
 
-	"gsd/internal/event"
-	"gsd/internal/ids"
-	"gsd/internal/store"
+	"github.com/jomolungmah/gsd-tracker/internal/event"
+	"github.com/jomolungmah/gsd-tracker/internal/ids"
+	"github.com/jomolungmah/gsd-tracker/internal/store"
 )
 
 func cmdTask(args []string) error {

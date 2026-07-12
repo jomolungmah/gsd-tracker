@@ -5,7 +5,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"gsd/internal/store"
+	"github.com/jomolungmah/gsd-tracker/internal/store"
 )
 
 func cmdInit() error {

@@ -5,8 +5,8 @@ import (
 	"strings"
 	"time"
 
-	"gsd/internal/event"
-	"gsd/internal/store"
+	"github.com/jomolungmah/gsd-tracker/internal/event"
+	"github.com/jomolungmah/gsd-tracker/internal/store"
 )
 
 func cmdShow(args []string) error {
