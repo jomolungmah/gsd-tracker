@@ -1,4 +1,4 @@
-module gsd
+module github.com/jomolungmah/gsd-tracker
 
 go 1.26
 
