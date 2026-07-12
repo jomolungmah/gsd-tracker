@@ -8,10 +8,10 @@ import (
 	"strings"
 	"time"
 
-	"gsd/internal/event"
-	"gsd/internal/ids"
-	"gsd/internal/state"
-	"gsd/internal/store"
+	"github.com/jomolungmah/gsd-tracker/internal/event"
+	"github.com/jomolungmah/gsd-tracker/internal/ids"
+	"github.com/jomolungmah/gsd-tracker/internal/state"
+	"github.com/jomolungmah/gsd-tracker/internal/store"
 )
 
 // newEvent fills the envelope fields shared by every event.

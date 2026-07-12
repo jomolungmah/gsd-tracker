@@ -3,7 +3,7 @@ package state
 import (
 	"testing"
 
-	"gsd/internal/event"
+	"github.com/jomolungmah/gsd-tracker/internal/event"
 )
 
 func ev(id, ts string, typ event.Type, mut func(*event.Event)) event.Event {

@@ -5,7 +5,7 @@ import (
 	"sort"
 	"time"
 
-	"gsd/internal/event"
+	"github.com/jomolungmah/gsd-tracker/internal/event"
 )
 
 type Task struct {

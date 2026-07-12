@@ -14,7 +14,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"gsd/internal/event"
+	"github.com/jomolungmah/gsd-tracker/internal/event"
 )
 
 const Dir = ".gsd"

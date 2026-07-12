@@ -6,8 +6,8 @@ import (
 	"testing"
 	"time"
 
-	"gsd/internal/event"
-	"gsd/internal/ids"
+	"github.com/jomolungmah/gsd-tracker/internal/event"
+	"github.com/jomolungmah/gsd-tracker/internal/ids"
 )
 
 func initRoot(t *testing.T) string {
